@@ -2,7 +2,7 @@
 #include <set>
 #include <map>
 
-int globalNumberOfNode = 0;
+static int globalNumberOfNode = 0;
 
 class Protocol 
 {	

@@ -1,12 +1,14 @@
-#include "Protocol.h"
-#include <fstream>
-#include <iostream>
-#include <string>
+//#include "Protocol.h"
+//#include <fstream>
+//#include <iostream>
+//#include <string>
 
-#define STATUS_OK 1
-#define STATUS_FAILURE 0
+//#define STATUS_OK 1
+//#define STATUS_FAILURE 0
 
-void translateProtocol() {
+#include "Functions.h"
+
+void Functions::translateProtocol() {
 	std::ifstream fileProtocol;
 	fileProtocol.open("C:/Users/jwozniak/Documents/Visual Studio 2015/Projects/PopulationProtocol/example.txt");
 	std::string line;

@@ -3,9 +3,10 @@
 #include "Protocol.h"
 #include "Node.h"
 #include "Graph.h"
-#include "Functions.cpp"
+#include "Functions.h"
 #include <iostream>
 #include <time.h>
+
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -24,8 +25,8 @@ int main()
 
 
 
-
-	translateProtocol();
+	Functions *aa = new Functions();
+	aa->translateProtocol();
 	Graph *graph = graph->getInstance(globalNumberOfNode);
 	//Node node1 = randNodesToInteraction();
 	//runInputFunction();

@@ -141,6 +141,7 @@
     <ClCompile Include="Protocol.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>

@@ -2,7 +2,7 @@
 #include "Node.h"
 //#include "Protocol.h"
 #include <vector>
-#include "Functions.cpp"
+#include "Functions.h"
 
 class Graph
 {
