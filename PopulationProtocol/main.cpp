@@ -23,13 +23,17 @@ int main()
 	
 
 
+	Protocol *p = p->getInstance();
 
+	//Functions *aa = new Functions();
+	//aa->translateProtocol();
+	translateProtocol();
+	std::cout << "init graph " << p->globalNumberOfNode << std::endl;
 
-	Functions *aa = new Functions();
-	aa->translateProtocol();
-	Graph *graph = graph->getInstance(globalNumberOfNode);
+	Graph *graph = graph->getInstance(p->globalNumberOfNode);
 	//Node node1 = randNodesToInteraction();
-	//runInputFunction();
+	graph->runInputFunction();
+	graph->runStatesFunction();
 	/*
 	for(int i = 0 ; i<2)
 	Protocol *protocol = protocol->getInstance();

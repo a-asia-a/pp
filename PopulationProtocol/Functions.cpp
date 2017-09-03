@@ -8,7 +8,8 @@
 
 #include "Functions.h"
 
-void Functions::translateProtocol() {
+//void Functions::translateProtocol() {
+void translateProtocol() {
 	std::ifstream fileProtocol;
 	fileProtocol.open("C:/Users/jwozniak/Documents/Visual Studio 2015/Projects/PopulationProtocol/example.txt");
 	std::string line;
@@ -125,7 +126,8 @@ void Functions::translateProtocol() {
 			if (line == "<main>") {
 				std::getline(fileProtocol, line);
 				// potem zmienic, zeby to nie byl global
-				globalNumberOfNode = atoi(line.c_str());
+				protocol->globalNumberOfNode = atoi(line.c_str());
+				std::cout << "globalNumberOfNode w function " << protocol->globalNumberOfNode << std::endl;
 				//Graph *graph = graph->getInstance(atoi(line.c_str()));
 			}		
 		}

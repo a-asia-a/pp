@@ -22,4 +22,5 @@ public:
 	void oneIteractionOfStatesFunction();
 	std::vector<Node>::iterator getHandlerToSetOfNodesInGraph();
 	Node randNodesToInteraction();
+	std::vector <Node> ::iterator randPointerToNodesToInteraction();
 };

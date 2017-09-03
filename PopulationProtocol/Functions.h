@@ -7,6 +7,7 @@
 #define STATUS_OK 1
 #define STATUS_FAILURE 0
 
+/*
 class Functions {
 public: 
 	void translateProtocol();
@@ -14,3 +15,5 @@ public:
 
 private:
 };
+*/
+void translateProtocol();

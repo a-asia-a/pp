@@ -2,7 +2,7 @@
 #include <set>
 #include <map>
 
-static int globalNumberOfNode = 0;
+//static int globalNumberOfNode = 0;
 
 class Protocol 
 {	
@@ -20,6 +20,8 @@ private:
 	Protocol();
 
 public:
+	int globalNumberOfNode;
+
 	static Protocol* getInstance();
 	void addElemToInputAlphabetOfProtocol(char valueOfElement);
 	void deleteElemFromInputAlphabetOfProtocol(char valueOfElement);
