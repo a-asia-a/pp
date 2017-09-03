@@ -53,16 +53,14 @@ void Graph::runInputFunction() {
 }
 
 std::vector<Node>::iterator Graph::getHandlerToSetOfNodesInGraph() {
-	std::vector<Node>::iterator it;
-	it = setNodesInGraph.begin();
-
-	return it;
+	//std::vector<Node>::iterator it;
+	return setNodesInGraph.begin();
 }
 
 void Graph::runStatesFunction() {
 	//std::cout << "start runStatesFunction" << std::endl;
 	int i = 0;
-	while (i < 100) {
+	while (i < 10) {
 		oneIteractionOfStatesFunction();
 		i++;
 	}
@@ -71,27 +69,76 @@ void Graph::runStatesFunction() {
 
 void Graph::oneIteractionOfStatesFunction() {
 	//std::cout << "start oneIteractionOfStatesFunction" << std::endl;
-	Protocol *protocol = protocol->getInstance();
+	//Protocol *protocol = protocol->getInstance();
 
-	Node initiatorNode = randNodesToInteraction();
-	Node responderNode = randNodesToInteraction();
-	char stateOfInitiatorNode = initiatorNode.getStateOfNode();
-	char stateOfResponderNode = responderNode.getStateOfNode();
-	
-	std::pair<char, char> newStatesOfNodes = protocol->getResultOfStatesFunction(stateOfInitiatorNode, stateOfResponderNode);
-	
-	initiatorNode.setStateOfNode(newStatesOfNodes.first);
-	responderNode.setStateOfNode(newStatesOfNodes.second);
-
-	std::cout << "wylosowano Node " << stateOfInitiatorNode << " i " << stateOfResponderNode;
-	std::cout << "   nowe stany: " << newStatesOfNodes.first << " i " << newStatesOfNodes.second << std::endl;	
-	//std::cout << "end oneIteractionOfStatesFunction" << std::endl;
 	std::vector <Node> ::iterator it;
 	for (it = setNodesInGraph.begin(); it != setNodesInGraph.end(); ++it) {
 		std::cout << it->getStateOfNode() << " "; // << std::endl;
 	}
 	std::cout << std::endl;
 
+	////Node initiatorNode = randNodesToInteraction();
+	////Node responderNode = randNodesToInteraction();
+	////char stateOfInitiatorNode = initiatorNode.getStateOfNode();
+	////char stateOfResponderNode = responderNode.getStateOfNode();
+	//
+	//std::vector <Node> ::iterator initiatorNodePointer = randPointerToNodesToInteraction();
+	//std::vector <Node> ::iterator responderNodePointer = randPointerToNodesToInteraction();
+	//while (initiatorNodePointer == responderNodePointer) {
+	//	std::vector <Node> ::iterator responderNodePointer = randPointerToNodesToInteraction();
+	//}
+
+
+	Protocol *protocol = protocol->getInstance();
+	Graph *graph = graph->getInstance(protocol->globalNumberOfNode);
+	
+	int rnd1 = std::rand() %  graph->getNumberOfNodesInGraph();
+	int rnd2 = std::rand() %  graph->getNumberOfNodesInGraph();
+	while (rnd2 == rnd1) {
+		rnd2 = std::rand() % graph->getNumberOfNodesInGraph();
+	}
+	std::cout << "rnd " << rnd1 << "  " << rnd2 << std::endl;
+
+	char stateOfInitiatorNode = setNodesInGraph[rnd1].getStateOfNode();
+	char stateOfResponderNode = setNodesInGraph[rnd2].getStateOfNode();	
+	std::pair<char, char> newStatesOfNodes = protocol->getResultOfStatesFunction(stateOfInitiatorNode, stateOfResponderNode);
+	std::cout << "(" << stateOfInitiatorNode << "," << stateOfResponderNode << ") -> (" <<
+		newStatesOfNodes.first << "," << newStatesOfNodes.second <<")" << std::endl;
+
+	setNodesInGraph[rnd1].setStateOfNode(newStatesOfNodes.first);//!!!!!!!!!!!!!!!!!!!!!
+	setNodesInGraph[rnd2].setStateOfNode(newStatesOfNodes.second);//!!!!!!!!!!!!!!!!!!!!!
+	
+	
+	
+	
+	
+	
+	
+	
+	//char stateOfInitiatorNode = initiatorNode.getStateOfNode();
+	//char stateOfResponderNode = responderNode.getStateOfNode();
+
+	////std::cout << "www  " << setNodesInGraph[0].getStateOfNode() << std::endl;
+
+
+
+	//char stateOfInitiatorNode = initiatorNodePointer->getStateOfNode();
+	//char stateOfResponderNode = responderNodePointer->getStateOfNode();
+
+	//std::pair<char, char> newStatesOfNodes = protocol->getResultOfStatesFunction(stateOfInitiatorNode, stateOfResponderNode);
+	//
+	//Graph *graph = graph->getInstance(protocol->globalNumberOfNode);
+	//initiatorNodePointer->setStateOfNode(newStatesOfNodes.first);	
+	//responderNodePointer->setStateOfNode(newStatesOfNodes.second);
+
+
+	//initiatorNodePointer->setStateOfNode(newStatesOfNodes.first);
+	//responderNodePointer->setStateOfNode(newStatesOfNodes.second);
+
+	//std::cout << "wylosowano Node " << stateOfInitiatorNode << " i " << stateOfResponderNode << std::endl;
+	//std::cout << "nowe stany: " << newStatesOfNodes.first << " i " << newStatesOfNodes.second << std::endl;	
+	//std::cout << "end oneIteractionOfStatesFunction" << std::endl;
+	
 
 }
 
@@ -109,8 +156,10 @@ std::vector <Node> ::iterator Graph::randPointerToNodesToInteraction() {
 	Protocol *p = p->getInstance();
 	Graph *graph = graph->getInstance(p->globalNumberOfNode);
 	int rnd = std::rand() % graph->getNumberOfNodesInGraph();
+	std::cout << "rnd " << rnd << std::endl;
 	std::vector <Node> ::iterator it = graph->getHandlerToSetOfNodesInGraph();
-	//advance(it, rnd);
+	advance(it, rnd);
+	//std::cout << "www  " << setNodesInGraph[0].getStateOfNode() << std::endl;
 
 	return it;
 }
