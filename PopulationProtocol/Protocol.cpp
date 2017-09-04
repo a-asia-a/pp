@@ -127,7 +127,13 @@ char Protocol::getResultOfOutputFunction(char outputChar) {
 
 std::pair<char, char> Protocol::getResultOfStatesFunction(char stateOfFirstNode, char stateOfSecondNode) {
 	//statesFunctionOfProtocol[firstNodeState, secondNodeState];
-	auto res = statesFunctionOfProtocol.find(std::make_pair(stateOfFirstNode, stateOfSecondNode));
-	return res->second;	
+	if (statesFunctionOfProtocol.find(std::make_pair(stateOfFirstNode, stateOfSecondNode)) == statesFunctionOfProtocol.end()) {
+		//std::cout << " key dont exist" << std::endl;
+		return std::make_pair(stateOfFirstNode, stateOfSecondNode);
+	}
+	else {
+		auto res = statesFunctionOfProtocol.find(std::make_pair(stateOfFirstNode, stateOfSecondNode));
+		return res->second;
+	}	
 }
 
