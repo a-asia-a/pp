@@ -1,5 +1,5 @@
 #include "Graph.h"
-//#define DEBUG 1
+#define DEBUG 1
 
 Graph::Graph(int numberOfNodes) :
 	numberOfNodesInGraph(numberOfNodes)
@@ -66,10 +66,26 @@ void Graph::runStatesFunction() {
 #endif
 
 	int i = 0;
-	while (i < 20) {
+	while (allNodesHaveTheSameState() == false) {
+		if (i > 1000) {
+			resultOfProtocol(false);
+			break;
+		}
 		oneIteractionOfStatesFunction();
+		runOutputFunction();
 		i++;
 	}
+}
+
+void Graph::runOutputFunction() {
+	Protocol *protocol = protocol->getInstance();
+	std::vector <Node> ::iterator it;
+	for (it = setNodesInGraph.begin(); it != setNodesInGraph.end(); ++it) {
+		char outputState = protocol->getResultOfOutputFunction(it->getStateOfNode());
+		it->setOutputOfNode(outputState);
+		//std::cout << outputState << " "; // << std::endl;
+	}
+	//std::cout << std::endl;
 }
 
 void Graph::oneIteractionOfStatesFunction() {
@@ -128,4 +144,26 @@ std::vector <Node> ::iterator Graph::randPointerToNodesToInteraction() {
 	//std::cout << "www  " << setNodesInGraph[0].getStateOfNode() << std::endl;
 
 	return it;
+}
+
+bool Graph::allNodesHaveTheSameState() {
+	Protocol *protocol = protocol->getInstance();
+	std::vector <Node> ::iterator it;
+	bool allOutputOfNodesAreEqual = false;
+	int sumOfOutput = 0;
+	for (it = setNodesInGraph.begin(); it != setNodesInGraph.end(); ++it) {
+		sumOfOutput += int(it->getOutputOfNode()) - 48;
+	}
+
+	if (sumOfOutput == 0 || sumOfOutput == protocol->globalNumberOfNode) {
+		resultOfProtocol(true);
+		return true;
+	}
+	else
+		return false;
+}
+
+int Graph::resultOfProtocol(bool result) {
+	std::cout << result << std::endl;
+	return result;
 }

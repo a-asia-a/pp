@@ -24,7 +24,8 @@ z
 <outputFunction>
 (y)->(1)
 (x)->(0)
+(z)->(0)
 </outputFunction>
 <main>
-10
+6
 </main>

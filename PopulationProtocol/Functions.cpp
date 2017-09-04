@@ -11,7 +11,8 @@
 //void Functions::translateProtocol() {
 void translateProtocol() {
 	std::ifstream fileProtocol;
-	fileProtocol.open("C:/Users/jwozniak/Documents/Visual Studio 2015/Projects/PopulationProtocol/example.txt");
+	//fileProtocol.open("C:/Users/jwozniak/Documents/Visual Studio 2015/Projects/PopulationProtocol/example.txt");
+	fileProtocol.open("C:/magisterka/pp/example.txt");
 	std::string line;
 	bool Status;
 	Protocol *protocol = protocol->getInstance();
@@ -127,7 +128,6 @@ void translateProtocol() {
 				std::getline(fileProtocol, line);
 				// potem zmienic, zeby to nie byl global
 				protocol->globalNumberOfNode = atoi(line.c_str());
-				std::cout << "globalNumberOfNode w function " << protocol->globalNumberOfNode << std::endl;
 				//Graph *graph = graph->getInstance(atoi(line.c_str()));
 			}		
 		}

@@ -28,9 +28,8 @@ int main()
 	//Functions *aa = new Functions();
 	//aa->translateProtocol();
 	translateProtocol();
-	std::cout << "init graph " << p->globalNumberOfNode << std::endl;
-
 	Graph *graph = graph->getInstance(p->globalNumberOfNode);
+
 	//Node node1 = randNodesToInteraction();
 	graph->runInputFunction();
 	graph->runStatesFunction();
@@ -44,16 +43,16 @@ int main()
 	std::cout << "Node trzymal symbol wejsciowy: " << *it << std::endl;
 	*/
 
-/*
+
 	//std::cout << "wyswietl" << std::endl;
-	Protocol *	protocol = protocol->getInstance();
+	/*Protocol *	protocol = protocol->getInstance();
 	protocol->showElemOfInputAlphabetOfProtocol();
 	protocol->showElemOfOutputAlphabetOfProtocol();
 	protocol->showElemOfStatesAlphabetOfProtocol();
 	protocol->showElemOfInputFunctionOfProtocol();
 	protocol->showElemOfStatesFunctionOfProtocol();
-	protocol->showElemOfOutputFunctionOfProtocol();
-*/
+	protocol->showElemOfOutputFunctionOfProtocol();*/
+
 	
 
 	// inicjalizacja przy przyciœniêciu switch'a

@@ -19,8 +19,11 @@ public:
 	void createGraph();
 	void runInputFunction();
 	void runStatesFunction();
+	void runOutputFunction();
+	int resultOfProtocol(bool result);
 	void oneIteractionOfStatesFunction();
 	std::vector<Node>::iterator getHandlerToSetOfNodesInGraph();
 	Node randNodesToInteraction();
 	std::vector <Node> ::iterator randPointerToNodesToInteraction();
+	bool allNodesHaveTheSameState();
 };
