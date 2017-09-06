@@ -16,7 +16,6 @@ private:
 	std::map <char, char> inputFunctionOfProtocol;
 	std::map <std::pair <char,char>, std::pair <char,char> > statesFunctionOfProtocol;
 	std::map <char, char> outputFunctionOfProtocol;
-	char result;
 	Protocol();
 
 public:
@@ -48,5 +47,8 @@ public:
 	int getSizeOfInputAlphabet();
 	char getResultOfInputFunction(char inputChar);
 	char getResultOfOutputFunction(char outputChar);
+
+	void setResultOfProtocol(bool result);
+
 	std::pair<char,char> getResultOfStatesFunction (char stateOfFirstNode, char stateOfSecondNode);
 };

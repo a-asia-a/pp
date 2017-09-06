@@ -33,6 +33,8 @@ int main()
 	//Node node1 = randNodesToInteraction();
 	graph->runInputFunction();
 	graph->runStatesFunction();
+	graph->getResultOfProtocol();
+
 	/*
 	for(int i = 0 ; i<2)
 	Protocol *protocol = protocol->getInstance();

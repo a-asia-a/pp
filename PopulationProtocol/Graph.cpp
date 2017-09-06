@@ -68,13 +68,15 @@ void Graph::runStatesFunction() {
 	int i = 0;
 	while (allNodesHaveTheSameState() == false) {
 		if (i > 1000) {
-			resultOfProtocol(false);
+			setResultOfProtocol(false);
 			break;
 		}
 		oneIteractionOfStatesFunction();
 		runOutputFunction();
 		i++;
 	}
+	std::cout << "ilosc iteracji: " << i + 1 << std::endl;
+
 }
 
 void Graph::runOutputFunction() {
@@ -155,15 +157,20 @@ bool Graph::allNodesHaveTheSameState() {
 		sumOfOutput += int(it->getOutputOfNode()) - 48;
 	}
 
-	if (sumOfOutput == 0 || sumOfOutput == protocol->globalNumberOfNode) {
-		resultOfProtocol(true);
+	if (sumOfOutput == 0 || sumOfOutput == protocol->globalNumberOfNode)
 		return true;
-	}
 	else
 		return false;
 }
 
-int Graph::resultOfProtocol(bool result) {
-	std::cout << result << std::endl;
+void Graph::setResultOfProtocol(bool result) {
+	this->result = result;
+}
+
+bool Graph::getResultOfProtocol() {
+	if (this->result==true)
+		std::cout << "result 1" << std::endl;
+	else
+		std::cout << "result 0" << std::endl;
 	return result;
 }

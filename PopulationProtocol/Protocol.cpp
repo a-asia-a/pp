@@ -137,3 +137,4 @@ std::pair<char, char> Protocol::getResultOfStatesFunction(char stateOfFirstNode,
 	}	
 }
 
+
