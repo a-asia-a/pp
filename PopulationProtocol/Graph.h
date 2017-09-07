@@ -3,6 +3,7 @@
 //#include "Protocol.h"
 #include <vector>
 #include "Functions.h"
+#include <fstream>
 
 class Graph
 {
@@ -28,4 +29,6 @@ public:
 	std::vector <Node> ::iterator randPointerToNodesToInteraction();
 	bool allNodesHaveTheSameState();
 	bool getResultOfProtocol();
+	void saveGraph();
+	void readSavedGraph();
 };

@@ -23,7 +23,7 @@ void translateProtocol() {
 		Status = STATUS_FAILURE;
 
 	if (STATUS_OK == Status) {
-		std::cout << "otworzono" <<std::endl;
+		//std::cout << "otworzono" <<std::endl;
 		while (!fileProtocol.eof()) {
 			std::getline(fileProtocol, line);
 			

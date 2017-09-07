@@ -31,10 +31,22 @@ int main()
 	Graph *graph = graph->getInstance(p->globalNumberOfNode);
 
 	//Node node1 = randNodesToInteraction();
-	graph->runInputFunction();
-	graph->runStatesFunction();
-	graph->getResultOfProtocol();
+	graph->saveGraph();
+	
 
+	for (int i = 0; i < 50; i++)
+	{
+		time_t timeStart = clock();
+		graph->runInputFunction();
+		graph->runStatesFunction();
+		graph->getResultOfProtocol();
+		time_t time = (clock() - timeStart);
+		std::cout << (double)((1000 * time) / CLOCKS_PER_SEC) << "ms" << std::endl;
+	}
+	
+
+	//graph->readSavedGraph();
+	
 	/*
 	for(int i = 0 ; i<2)
 	Protocol *protocol = protocol->getInstance();
