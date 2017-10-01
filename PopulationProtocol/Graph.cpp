@@ -1,5 +1,6 @@
 #include "Graph.h"
 //#define DEBUG 1
+//#define DEBUG_DETAIL 1
 
 Graph::Graph(int numberOfNodes) :
 	numberOfNodesInGraph(numberOfNodes)
@@ -31,21 +32,27 @@ char Graph::randInputValueForNode(){
 }
 
 void Graph::createGraph(){
+	
+	readSavedGraph();
+
+	/*
 	for (int i = 0; i < numberOfNodesInGraph; i++){
 		char inicializeInputChar = randInputValueForNode();	
 		Node nodeTemp(inicializeInputChar);
 		setNodesInGraph.push_back(nodeTemp);
 		//std::cout << "dodano nowy wezel o stanie pocz " << inicializeInputChar << std::endl;
 	}
+	*/
 	//std::cout << "end CreateGraph" << std::endl;
+	
 }
 
 void Graph::runInputFunction() {
 	Protocol *protocol = protocol->getInstance();
 	std::vector<Node>::iterator it;
 
-#ifdef DEBUG
-	std::vector <Node> ::iterator it;
+#ifdef DEBUG_DETAIL
+//	std::vector <Node> ::iterator it;
 	for (it = setNodesInGraph.begin(); it != setNodesInGraph.end(); ++it) {
 		std::cout << it->getInputOfNode() << " "; // << std::endl;
 	}
@@ -66,8 +73,10 @@ std::vector<Node>::iterator Graph::getHandlerToSetOfNodesInGraph() {
 }
 
 void Graph::runStatesFunction() {
-#ifdef DEBUG
 	std::vector <Node> ::iterator it;
+
+#ifdef DEBUG_DETAIL
+	//std::vector <Node> ::iterator it;
 	for (it = setNodesInGraph.begin(); it != setNodesInGraph.end(); ++it) {
 		std::cout << it->getStateOfNode() << " "; // << std::endl;
 	}
@@ -78,22 +87,24 @@ void Graph::runStatesFunction() {
 	runOutputFunction();
 	setResultOfProtocol(true);
 	while (allNodesHaveTheSameState() == false) {
-		if (i > 1000) {
+		
+		if (i > 5000000) {
 			setResultOfProtocol(false);
 			break;
 		}
+
 		oneIteractionOfStatesFunction();
 		runOutputFunction();
 		i++;
 	}
-
-	std::vector <Node> ::iterator it;
+#if DEBUG
+ 	//std::vector <Node> ::iterator it;
 	std::cout << std::endl;
 	for (it = setNodesInGraph.begin(); it != setNodesInGraph.end(); ++it) {
 		std::cout << it->getStateOfNode() << " "; // << std::endl;
 	}
-
 	std::cout << "ilosc iteracji: " << i + 1 << std::endl;
+#endif
 }
 
 void Graph::runOutputFunction() {
@@ -116,7 +127,7 @@ void Graph::oneIteractionOfStatesFunction() {
 	while (rnd2 == rnd1) {
 		rnd2 = std::rand() % graph->getNumberOfNodesInGraph();
 	}
-	//std::cout << "rnd " << rnd1 << "  " << rnd2 << std::endl;
+	//std::cout << rnd1 << "," << rnd2 << " ";
 
 	char stateOfInitiatorNode = setNodesInGraph[rnd1].getStateOfNode();
 	char stateOfResponderNode = setNodesInGraph[rnd2].getStateOfNode();	
@@ -157,7 +168,7 @@ std::vector <Node> ::iterator Graph::randPointerToNodesToInteraction() {
 	Protocol *p = p->getInstance();
 	Graph *graph = graph->getInstance(p->globalNumberOfNode);
 	int rnd = std::rand() % graph->getNumberOfNodesInGraph();
-	std::cout << "rnd " << rnd << std::endl;
+	//std::cout << "rnd " << rnd << std::endl;
 	std::vector <Node> ::iterator it = graph->getHandlerToSetOfNodesInGraph();
 	advance(it, rnd);
 	//std::cout << "www  " << setNodesInGraph[0].getStateOfNode() << std::endl;
@@ -174,7 +185,7 @@ bool Graph::allNodesHaveTheSameState() {
 		if (stateRef != it->getOutputOfNode())
 			allOutputOfNodesAreEqual = false;
 	}
-
+	
 	if (true == allOutputOfNodesAreEqual)
 		return true;
 	else
@@ -188,12 +199,25 @@ void Graph::setResultOfProtocol(bool result) {
 bool Graph::getResultOfProtocol() {
 	if (this->result == true) {
 		std::vector <Node> ::iterator it = setNodesInGraph.begin();
+#ifdef DEBUG
 		std::cout << "result " << it->getOutputOfNode() << std::endl;
+#endif
+		if (it->getOutputOfNode() == '1')
+			this->wynik = 1;
+		if (it->getOutputOfNode() == '0')
+			this->wynik = 0;
 	}
 	else
+#ifdef DEBUG
 		std::cout << "result fail" << std::endl;
+#endif
 	return result;
 }
+
+int Graph::getWynik() {
+	return wynik;
+}
+
 
 void Graph::saveGraph() {
 	std::ofstream fileWithGraph("graph.txt");
@@ -224,13 +248,32 @@ void Graph::readSavedGraph() {
 		sizeGraph = atoi(line.c_str());
 		//dodac metode inicjalizacji bez randomowego losowania stanów tylko wczytania
 		//Graph *graph = graph->getInstance(sizeGraph);
-
+		int countStateF = 0;
+		int countStateL = 0;
+		for (int i = 0; i < sizeGraph; i++) {
+			std::getline(fileWithGraph, line);
+			char inicializeInputChar = line[0];
+			if (inicializeInputChar == 'F')
+				countStateF++;
+			if (inicializeInputChar == 'L')
+				countStateL++;
+			Node nodeTemp(inicializeInputChar);
+			setNodesInGraph.push_back(nodeTemp);
+			//std::cout << "dodano nowy wezel o stanie pocz " << inicializeInputChar << std::endl;
+		}
+		std::cout << "F: " << countStateF << " L: " << countStateL << std::endl;
+		/*
 		std::vector <Node> ::iterator it = setNodesInGraph.begin();
-		while (!fileWithGraph.eof()) {
+		int i = 0;
+		while (i<sizeGraph) {	
 			std::getline(fileWithGraph, line);
 			it->setInputOfNode(line[0]);
 			++it;
+			//std::cout << i << " ustawiono wejscie " << line[0] << std::endl;
+			i++;	
 		}
+		*/
+		fileWithGraph.close();
 	}
 	else
 		std::cout << "Nie uda³o siê otworzyæ pliku" << std::endl;

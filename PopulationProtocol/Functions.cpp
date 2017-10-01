@@ -12,7 +12,8 @@
 void translateProtocol() {
 	std::ifstream fileProtocol;
 	//fileProtocol.open("C:/Users/jwozniak/Documents/Visual Studio 2015/Projects/PopulationProtocol/example.txt");
-	fileProtocol.open("C:/magisterka/pp/example.txt");
+	//fileProtocol.open("C:/magisterka/pp/example.txt");
+	fileProtocol.open("C:/magisterka/pp/example2b.txt");
 	std::string line;
 	bool Status;
 	Protocol *protocol = protocol->getInstance();
@@ -26,7 +27,6 @@ void translateProtocol() {
 		//std::cout << "otworzono" <<std::endl;
 		while (!fileProtocol.eof()) {
 			std::getline(fileProtocol, line);
-			
 			
 			if (line == "<input>") {
 				std::getline(fileProtocol, line);
@@ -99,7 +99,6 @@ void translateProtocol() {
 					std::getline(fileProtocol, line);
 				}
 			}
-
 			if (line == "<outputFunction>") {
 				bool foundFirstValue = false;
 				char value1, value2;

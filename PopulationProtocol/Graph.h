@@ -11,7 +11,9 @@ private:
 	static Graph* instance;	
 	std::vector <Node> setNodesInGraph;
 	int numberOfNodesInGraph;
-	int result;
+public:
+	bool result;
+	int wynik;
 public:	
 	static Graph* getInstance(int numerOfNodes);
 	Graph(int numberOfNodes);
@@ -31,4 +33,5 @@ public:
 	bool getResultOfProtocol();
 	void saveGraph();
 	void readSavedGraph();
+	int getWynik();
 };
