@@ -13,7 +13,7 @@ void translateProtocol() {
 	std::ifstream fileProtocol;
 	//fileProtocol.open("C:/Users/jwozniak/Documents/Visual Studio 2015/Projects/PopulationProtocol/example.txt");
 	//fileProtocol.open("C:/magisterka/pp/example.txt");
-	fileProtocol.open("C:/magisterka/pp/example2b.txt");
+	fileProtocol.open("C:/magisterka/pp/example4c.txt");
 	std::string line;
 	bool Status;
 	Protocol *protocol = protocol->getInstance();

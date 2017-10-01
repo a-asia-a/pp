@@ -14,6 +14,7 @@ using namespace System::Windows::Forms;
 Protocol* Protocol::instance = 0;
 Graph* Graph::instance = 0;
 
+[STAThreadAttribute]
 int main()
 {
 	srand(time(NULL));
