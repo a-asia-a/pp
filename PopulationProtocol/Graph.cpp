@@ -1,5 +1,5 @@
 #include "Graph.h"
-//#define DEBUG 1
+#define DEBUG 1
 //#define DEBUG_DETAIL 1
 
 Graph::Graph(int numberOfNodes) :
@@ -72,7 +72,7 @@ std::vector<Node>::iterator Graph::getHandlerToSetOfNodesInGraph() {
 	return setNodesInGraph.begin();
 }
 
-void Graph::runStatesFunction() {
+unsigned long long int Graph::runStatesFunction() {
 	std::vector <Node> ::iterator it;
 
 #ifdef DEBUG_DETAIL
@@ -83,7 +83,7 @@ void Graph::runStatesFunction() {
 	std::cout << std::endl;
 #endif
 
-	int i = 0;
+	unsigned long long int i = 0;
 	runOutputFunction();
 	setResultOfProtocol(true);
 	while (allNodesHaveTheSameState() == false) {
@@ -105,6 +105,7 @@ void Graph::runStatesFunction() {
 	}
 	std::cout << "ilosc iteracji: " << i + 1 << std::endl;
 #endif
+	return i;
 }
 
 void Graph::runOutputFunction() {
@@ -181,15 +182,30 @@ bool Graph::allNodesHaveTheSameState() {
 	bool allOutputOfNodesAreEqual = true;
 	std::vector <Node> ::iterator it = setNodesInGraph.begin();
 	char stateRef = it->getOutputOfNode();
+
+	/*
 	for (it; it != setNodesInGraph.end(); ++it) {
-		if (stateRef != it->getOutputOfNode())
-			allOutputOfNodesAreEqual = false;
+	if (stateRef != it->getOutputOfNode())
+	allOutputOfNodesAreEqual = false;
 	}
-	
+
 	if (true == allOutputOfNodesAreEqual)
+	return true;
+	else
+	return false;
+	*/
+
+	int sum = 0;
+	for (it; it != setNodesInGraph.end(); ++it) {
+		if (it->getOutputOfNode() == '1')
+			sum += 1;
+	}
+
+	if (sum == 1)
 		return true;
 	else
 		return false;
+
 }
 
 void Graph::setResultOfProtocol(bool result) {
@@ -216,6 +232,20 @@ bool Graph::getResultOfProtocol() {
 
 int Graph::getWynik() {
 	return wynik;
+}
+
+char Graph::getSymbolWynik()
+{
+	std::vector <Node> ::iterator it = setNodesInGraph.begin();
+
+	// alg. birds died
+	for (it ; it != setNodesInGraph.end(); ++it) {
+		char outputState = it->getStateOfNode();
+		if (outputState == 'F' || outputState == 'L' || outputState == 'P')
+			break;
+	}
+	// end alg.birds died
+	return it->getStateOfNode();
 }
 
 
@@ -246,6 +276,7 @@ void Graph::readSavedGraph() {
 	if (STATUS_OK == Status) {
 		std::getline(fileWithGraph, line);
 		sizeGraph = atoi(line.c_str());
+		numberOfNodesInGraph = sizeGraph;
 		//dodac metode inicjalizacji bez randomowego losowania stanów tylko wczytania
 		//Graph *graph = graph->getInstance(sizeGraph);
 		int countStateF = 0;

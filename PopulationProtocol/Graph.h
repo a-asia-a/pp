@@ -22,7 +22,7 @@ public:
 	char randInputValueForNode();
 	void createGraph();
 	void runInputFunction();
-	void runStatesFunction();
+	unsigned long long int runStatesFunction();
 	void runOutputFunction();
 	void setResultOfProtocol(bool result);
 	void oneIteractionOfStatesFunction();
@@ -34,4 +34,5 @@ public:
 	void saveGraph();
 	void readSavedGraph();
 	int getWynik();
+	char getSymbolWynik();
 };

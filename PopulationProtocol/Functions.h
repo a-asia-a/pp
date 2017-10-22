@@ -17,3 +17,4 @@ private:
 };
 */
 void translateProtocol();
+int getNumberOfNodes();

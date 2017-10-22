@@ -27,42 +27,74 @@ int main()
 	
 
 	
-	Protocol *p = p->getInstance();
+	//Protocol *p = p->getInstance();
 
 	//Functions *aa = new Functions();
 	//aa->translateProtocol();
 	translateProtocol();
-	Graph *graph = graph->getInstance(p->globalNumberOfNode);
+	int numberOfNodes = getNumberOfNodes();
+	//Graph *graph = graph->getInstance(p->globalNumberOfNode);
+	Graph *graph = graph->getInstance(numberOfNodes);
 
 	//Node node1 = randNodesToInteraction();
 	//graph->saveGraph();
 	
 	int licznikL = 0; 
 	int licznikF = 0;
+	int licznikP = 0;
 
-	time_t timeStart1 = clock();
-	for (int i = 0; i < 30000;  i++) {
-		//std::cout << "wyniki " << i << std::endl;
-		//graph->readSavedGraph();
-		time_t timeStart = clock();
-		graph->runInputFunction();
-		graph->runStatesFunction();
-		graph->getResultOfProtocol();
+	unsigned long long int ilIter = 0;
+	unsigned long long int partIter = 0;
 
-		if(i == 1000)
-			std::cout << "1000 " << std::endl;
-		if (graph->getWynik() == 1)
-			licznikL++;
-		if (graph->getWynik() == 0)
-			licznikF++;	
-		time_t time = (clock() - timeStart);
-		//std::cout << (double)((1000 * time) / CLOCKS_PER_SEC) << "ms" << std::endl;
-		
-	}
-	time_t time1 = (clock() - timeStart1);
-	std::cout << " odp L: " << licznikL << " " << "odp F: " << licznikF << std::endl;
-	std::cout << (double)((1000 * time1) / CLOCKS_PER_SEC) << "ms" << std::endl;
-	std::cout << "koniec" << std::endl;
+		time_t timeStart1 = clock();
+		for (int i = 0; i < 10; i++) {
+			//std::cout << "wyniki " << i << std::endl;
+			//graph->readSavedGraph();
+			time_t timeStart = clock();
+			graph->runInputFunction();
+			partIter = graph->runStatesFunction();
+			graph->getResultOfProtocol();
+
+			//if (i == 30000 || i == 60000 || i == 85000)
+				//std::cout << i << std::endl;
+			
+			// Alg tradycyjny
+			/*
+			if (graph->getWynik() == 1)
+				if (graph->getSymbolWynik() == 'L' || graph->getSymbolWynik() == 'l')
+					licznikL++;
+				if (graph->getSymbolWynik() == 'F' || graph->getSymbolWynik() == 'f')
+					licznikF++;
+			if (graph->getWynik() == 0)
+				licznikF++;
+			time_t time = (clock() - timeStart);
+			//std::cout << (double)((1000 * time) / CLOCKS_PER_SEC) << "ms" << std::endl;
+			ilIter += partIter;
+			*/
+
+			// Alg. birds died
+			
+				if (graph->getSymbolWynik() == 'L')
+					licznikL++;
+				if (graph->getSymbolWynik() == 'F')
+					licznikF++;
+				if (graph->getSymbolWynik() == 'P')
+					licznikP++;
+
+			
+			time_t time = (clock() - timeStart);
+			//std::cout << (double)((1000 * time) / CLOCKS_PER_SEC) << "ms" << std::endl;
+			ilIter += partIter;
+
+		}
+		time_t time1 = (clock() - timeStart1);
+		std::cout << " odp L: " << licznikL << " " << "odp F: " << licznikF << " " << "odp P: " << licznikP << std::endl;
+		std::cout << (double)((1000 * time1) / CLOCKS_PER_SEC) << "ms" << std::endl;
+		std::cout << " il iteracji " << ilIter << std::endl;
+		std::cout << "koniec" << std::endl;
+
+	
+	
 
 
 	

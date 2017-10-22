@@ -13,7 +13,12 @@ void translateProtocol() {
 	std::ifstream fileProtocol;
 	//fileProtocol.open("C:/Users/jwozniak/Documents/Visual Studio 2015/Projects/PopulationProtocol/example.txt");
 	//fileProtocol.open("C:/magisterka/pp/example.txt");
-	fileProtocol.open("C:/magisterka/pp/example4c.txt");
+	
+	//fileProtocol.open("C:/magisterka/pp/aprox.txt");
+	fileProtocol.open("C:/magisterka/pp/birdsDie.txt");
+	//fileProtocol.open("C:/magisterka/pp/example3.txt");
+	//fileProtocol.open("C:/magisterka/pp/example3.txt");
+	
 	std::string line;
 	bool Status;
 	Protocol *protocol = protocol->getInstance();
@@ -122,14 +127,38 @@ void translateProtocol() {
 					std::getline(fileProtocol, line);
 				}
 			}
-		
-			if (line == "<main>") {
+			/*
+				if (line == "<main>") {
 				std::getline(fileProtocol, line);
 				// potem zmienic, zeby to nie byl global
 				protocol->globalNumberOfNode = atoi(line.c_str());
 				//Graph *graph = graph->getInstance(atoi(line.c_str()));
-			}		
+				}		
+			*/	
+			
+			
 		}
 	}
 }
 
+int getNumberOfNodes() {
+	std::ifstream fileWithGraph;
+	int numberOfNodesInGraph = 0;
+	std::string line;
+	bool Status = false;
+
+	fileWithGraph.open("graph.txt");
+
+	if (fileWithGraph.is_open())
+		Status = STATUS_OK;
+	else
+		Status = STATUS_FAILURE;
+
+	if (STATUS_OK == Status) {
+		std::getline(fileWithGraph, line);
+		numberOfNodesInGraph = atoi(line.c_str());
+	}
+	fileWithGraph.close();
+
+	return numberOfNodesInGraph;
+}

@@ -21,6 +21,7 @@ F
 (L,0)->(L,1)
 (F,1)->(F,0)
 (0,1)->(0,0)
+(1,0)->(1,1)
 </statesFunction>
 <outputFunction>
 (L)->(1)
