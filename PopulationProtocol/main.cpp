@@ -21,16 +21,17 @@ int main()
 	//PopulationProtocol::MyFormPropertiesOfPP form1;
 	//Application::Run(%form1);
 	
-	//PopulationProtocol::MyForm form;
-	//Application::Run(%form);
+	PopulationProtocol::MyForm form;
+	Application::Run(%form);
 	
 	
 
 	
-	//Protocol *p = p->getInstance();
-
-	//Functions *aa = new Functions();
-	//aa->translateProtocol();
+	Protocol *p = p->getInstance();
+	Functions *aa = new Functions();
+	aa->translateProtocol();
+	
+	
 	translateProtocol();
 	int numberOfNodes = getNumberOfNodes();
 	//Graph *graph = graph->getInstance(p->globalNumberOfNode);
