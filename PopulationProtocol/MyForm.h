@@ -38,8 +38,9 @@ namespace PopulationProtocol {
 	protected:
 
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialogOfProtocol;
+	private: System::Windows::Forms::OpenFileDialog^  openFileDialogOfGraph;
 
-	private: System::Windows::Forms::OpenFileDialog^  openFileDialog2;
+
 	private: System::Windows::Forms::Button^  button_selectProtocol;
 	private: System::Windows::Forms::TextBox^  textBox_selectProtocol;
 
@@ -53,9 +54,10 @@ namespace PopulationProtocol {
 	private: System::Windows::Forms::FolderBrowserDialog^ folderBrowserDialogOfProtocol;
 	private: String^ folderName;
 	private: System::Windows::Forms::Button^  button_selectGraph;
+	private: System::Windows::Forms::FolderBrowserDialog^  folderBrowserDialogOfGraph;
 
 
-	private: System::Windows::Forms::FolderBrowserDialog^  folderBrowserDialog1;
+
 	private: bool fileOpened;
 	private: System::Windows::Forms::Button^  button_start;
 
@@ -105,9 +107,9 @@ namespace PopulationProtocol {
 			this->button_createProtocol = (gcnew System::Windows::Forms::Button());
 			this->checkBox_useExistingProtocol = (gcnew System::Windows::Forms::CheckBox());
 			this->openFileDialogOfProtocol = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->openFileDialog2 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->openFileDialogOfGraph = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->folderBrowserDialogOfProtocol = (gcnew System::Windows::Forms::FolderBrowserDialog());
-			this->folderBrowserDialog1 = (gcnew System::Windows::Forms::FolderBrowserDialog());
+			this->folderBrowserDialogOfGraph = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->button_start = (gcnew System::Windows::Forms::Button());
 			this->button_close = (gcnew System::Windows::Forms::Button());
 			this->groupBox_protocol = (gcnew System::Windows::Forms::GroupBox());
@@ -206,9 +208,9 @@ namespace PopulationProtocol {
 			this->checkBox_useExistingProtocol->UseVisualStyleBackColor = true;
 			this->checkBox_useExistingProtocol->CheckedChanged += gcnew System::EventHandler(this, &MyForm::checkBox_useExistingProtocol_CheckedChanged);
 			// 
-			// openFileDialog2
+			// openFileDialogOfGraph
 			// 
-			this->openFileDialog2->FileName = L"openFileDialog2";
+			this->openFileDialogOfGraph->FileName = L"openFileDialogOfGraph";
 			// 
 			// folderBrowserDialogOfProtocol
 			// 
@@ -284,9 +286,13 @@ namespace PopulationProtocol {
 	
 
 	
-	private: System::Void button_selectProtocol_Click(System::Object^  sender, System::EventArgs^  e) {
-		
-
+	private: System::Void button_selectProtocol_Click(System::Object^  sender, System::EventArgs^  e) {	
+		OpenFileDialog ^ openFileDialogOfProtocol = gcnew OpenFileDialog();
+		openFileDialogOfProtocol->Filter = L"txt|*.txt";
+		openFileDialogOfProtocol->ShowDialog();
+		this->textBox_selectProtocol->Text = openFileDialogOfProtocol->FileName;
+		// to trzeba zmienic
+		//openFileDialogOfProtocol->OpenFile();
 	}
 	private: System::Void button_selectGraph_Click(System::Object^  sender, System::EventArgs^  e) {
 		/*
@@ -297,10 +303,10 @@ namespace PopulationProtocol {
 			textBox2->Text = folderBrowserDialog1->SelectedPath;
 		}
 		*/
-		OpenFileDialog ^ openFileDialog1 = gcnew OpenFileDialog();
-		openFileDialog1->Filter = L"txt|*.txt";
-		openFileDialog1->ShowDialog();
-		this->textBox_selectGraph->Text = openFileDialog1->FileName;
+		OpenFileDialog ^ openFileDialogOfGraph = gcnew OpenFileDialog();
+		openFileDialogOfGraph->Filter = L"txt|*.txt";
+		openFileDialogOfGraph->ShowDialog();
+		this->textBox_selectGraph->Text = openFileDialogOfGraph->FileName;
 		// to trzeba zmienic
 		//openFileDialog1->OpenFile();
 
