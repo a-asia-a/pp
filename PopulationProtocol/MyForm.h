@@ -34,7 +34,7 @@ namespace PopulationProtocol {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::CheckBox^  checkBox_useExistingGraph;
+
 	protected:
 
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialogOfProtocol;
@@ -64,7 +64,7 @@ namespace PopulationProtocol {
 
 
 
-	private: System::Windows::Forms::CheckBox^  checkBox_useExistingProtocol;
+
 
 
 	private: System::Windows::Forms::Button^  button_createProtocol;
@@ -78,8 +78,11 @@ namespace PopulationProtocol {
 
 
 	private: System::Windows::Forms::Label^  label_infoProtocol;
-	private: System::Windows::Forms::RichTextBox^  richTextBox1;
-	private: System::Windows::Forms::RichTextBox^  richTextBox2;
+	private: System::Windows::Forms::RichTextBox^  richTextBox_infoProtocol;
+	private: System::Windows::Forms::RichTextBox^  richTextBox_infoGraph;
+
+
+
 	private: System::Windows::Forms::Label^  label_infoGraph;
 	private: System::Windows::Forms::Label^  label_graphFile;
 	private: System::Windows::Forms::GroupBox^  groupBox_simulation;
@@ -116,11 +119,9 @@ namespace PopulationProtocol {
 			this->button_ceateGraph = (gcnew System::Windows::Forms::Button());
 			this->button_selectGraph = (gcnew System::Windows::Forms::Button());
 			this->textBox_selectGraph = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox_useExistingGraph = (gcnew System::Windows::Forms::CheckBox());
 			this->textBox_selectProtocol = (gcnew System::Windows::Forms::TextBox());
 			this->button_selectProtocol = (gcnew System::Windows::Forms::Button());
 			this->button_createProtocol = (gcnew System::Windows::Forms::Button());
-			this->checkBox_useExistingProtocol = (gcnew System::Windows::Forms::CheckBox());
 			this->openFileDialogOfProtocol = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->openFileDialogOfGraph = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->folderBrowserDialogOfProtocol = (gcnew System::Windows::Forms::FolderBrowserDialog());
@@ -128,17 +129,17 @@ namespace PopulationProtocol {
 			this->button_start = (gcnew System::Windows::Forms::Button());
 			this->button_close = (gcnew System::Windows::Forms::Button());
 			this->groupBox_protocol = (gcnew System::Windows::Forms::GroupBox());
-			this->groupBox_graph = (gcnew System::Windows::Forms::GroupBox());
-			this->label_infoProtocol = (gcnew System::Windows::Forms::Label());
+			this->richTextBox_infoProtocol = (gcnew System::Windows::Forms::RichTextBox());
 			this->label_protocolFile = (gcnew System::Windows::Forms::Label());
-			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
-			this->label_graphFile = (gcnew System::Windows::Forms::Label());
+			this->label_infoProtocol = (gcnew System::Windows::Forms::Label());
+			this->groupBox_graph = (gcnew System::Windows::Forms::GroupBox());
+			this->richTextBox_infoGraph = (gcnew System::Windows::Forms::RichTextBox());
 			this->label_infoGraph = (gcnew System::Windows::Forms::Label());
-			this->richTextBox2 = (gcnew System::Windows::Forms::RichTextBox());
+			this->label_graphFile = (gcnew System::Windows::Forms::Label());
 			this->groupBox_simulation = (gcnew System::Windows::Forms::GroupBox());
-			this->textBox_outputSimulationFile = (gcnew System::Windows::Forms::TextBox());
-			this->label_simulation = (gcnew System::Windows::Forms::Label());
 			this->button_simulationBrowse = (gcnew System::Windows::Forms::Button());
+			this->label_simulation = (gcnew System::Windows::Forms::Label());
+			this->textBox_outputSimulationFile = (gcnew System::Windows::Forms::TextBox());
 			this->groupBox_protocol->SuspendLayout();
 			this->groupBox_graph->SuspendLayout();
 			this->groupBox_simulation->SuspendLayout();
@@ -171,18 +172,6 @@ namespace PopulationProtocol {
 			this->textBox_selectGraph->Size = System::Drawing::Size(414, 26);
 			this->textBox_selectGraph->TabIndex = 3;
 			// 
-			// checkBox_useExistingGraph
-			// 
-			this->checkBox_useExistingGraph->AutoSize = true;
-			this->checkBox_useExistingGraph->Location = System::Drawing::Point(216, 84);
-			this->checkBox_useExistingGraph->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
-			this->checkBox_useExistingGraph->Name = L"checkBox_useExistingGraph";
-			this->checkBox_useExistingGraph->Size = System::Drawing::Size(219, 24);
-			this->checkBox_useExistingGraph->TabIndex = 0;
-			this->checkBox_useExistingGraph->Text = L"use existing file with graph";
-			this->checkBox_useExistingGraph->UseVisualStyleBackColor = true;
-			this->checkBox_useExistingGraph->CheckedChanged += gcnew System::EventHandler(this, &MyForm::checkBox_useExistingGraph_CheckedChanged);
-			// 
 			// textBox_selectProtocol
 			// 
 			this->textBox_selectProtocol->Location = System::Drawing::Point(21, 128);
@@ -209,17 +198,6 @@ namespace PopulationProtocol {
 			this->button_createProtocol->Text = L"Create new Protocol";
 			this->button_createProtocol->UseVisualStyleBackColor = true;
 			this->button_createProtocol->Click += gcnew System::EventHandler(this, &MyForm::button_createProtocol_Click);
-			// 
-			// checkBox_useExistingProtocol
-			// 
-			this->checkBox_useExistingProtocol->AutoSize = true;
-			this->checkBox_useExistingProtocol->Location = System::Drawing::Point(193, 84);
-			this->checkBox_useExistingProtocol->Name = L"checkBox_useExistingProtocol";
-			this->checkBox_useExistingProtocol->Size = System::Drawing::Size(241, 24);
-			this->checkBox_useExistingProtocol->TabIndex = 12;
-			this->checkBox_useExistingProtocol->Text = L"use existing file with Prortocol";
-			this->checkBox_useExistingProtocol->UseVisualStyleBackColor = true;
-			this->checkBox_useExistingProtocol->CheckedChanged += gcnew System::EventHandler(this, &MyForm::checkBox_useExistingProtocol_CheckedChanged);
 			// 
 			// openFileDialogOfGraph
 			// 
@@ -251,13 +229,12 @@ namespace PopulationProtocol {
 			// 
 			// groupBox_protocol
 			// 
-			this->groupBox_protocol->Controls->Add(this->richTextBox1);
+			this->groupBox_protocol->Controls->Add(this->richTextBox_infoProtocol);
 			this->groupBox_protocol->Controls->Add(this->label_protocolFile);
 			this->groupBox_protocol->Controls->Add(this->label_infoProtocol);
 			this->groupBox_protocol->Controls->Add(this->button_selectProtocol);
 			this->groupBox_protocol->Controls->Add(this->textBox_selectProtocol);
 			this->groupBox_protocol->Controls->Add(this->button_createProtocol);
-			this->groupBox_protocol->Controls->Add(this->checkBox_useExistingProtocol);
 			this->groupBox_protocol->Location = System::Drawing::Point(12, 12);
 			this->groupBox_protocol->Name = L"groupBox_protocol";
 			this->groupBox_protocol->Size = System::Drawing::Size(454, 594);
@@ -265,21 +242,22 @@ namespace PopulationProtocol {
 			this->groupBox_protocol->TabStop = false;
 			this->groupBox_protocol->Text = L"Protocol\'s settings";
 			// 
-			// groupBox_graph
+			// richTextBox_infoProtocol
 			// 
-			this->groupBox_graph->Controls->Add(this->richTextBox2);
-			this->groupBox_graph->Controls->Add(this->label_infoGraph);
-			this->groupBox_graph->Controls->Add(this->label_graphFile);
-			this->groupBox_graph->Controls->Add(this->button_selectGraph);
-			this->groupBox_graph->Controls->Add(this->textBox_selectGraph);
-			this->groupBox_graph->Controls->Add(this->button_ceateGraph);
-			this->groupBox_graph->Controls->Add(this->checkBox_useExistingGraph);
-			this->groupBox_graph->Location = System::Drawing::Point(487, 12);
-			this->groupBox_graph->Name = L"groupBox_graph";
-			this->groupBox_graph->Size = System::Drawing::Size(454, 348);
-			this->groupBox_graph->TabIndex = 16;
-			this->groupBox_graph->TabStop = false;
-			this->groupBox_graph->Text = L"Graph\'s settings";
+			this->richTextBox_infoProtocol->Location = System::Drawing::Point(21, 218);
+			this->richTextBox_infoProtocol->Name = L"richTextBox_infoProtocol";
+			this->richTextBox_infoProtocol->Size = System::Drawing::Size(413, 351);
+			this->richTextBox_infoProtocol->TabIndex = 16;
+			this->richTextBox_infoProtocol->Text = L"No protocol uploaded";
+			// 
+			// label_protocolFile
+			// 
+			this->label_protocolFile->AutoSize = true;
+			this->label_protocolFile->Location = System::Drawing::Point(17, 102);
+			this->label_protocolFile->Name = L"label_protocolFile";
+			this->label_protocolFile->Size = System::Drawing::Size(181, 20);
+			this->label_protocolFile->TabIndex = 15;
+			this->label_protocolFile->Text = L"Path to file with protocol:";
 			// 
 			// label_infoProtocol
 			// 
@@ -290,31 +268,29 @@ namespace PopulationProtocol {
 			this->label_infoProtocol->TabIndex = 14;
 			this->label_infoProtocol->Text = L"Information about Population Protocol:";
 			// 
-			// label_protocolFile
+			// groupBox_graph
 			// 
-			this->label_protocolFile->AutoSize = true;
-			this->label_protocolFile->Location = System::Drawing::Point(17, 105);
-			this->label_protocolFile->Name = L"label_protocolFile";
-			this->label_protocolFile->Size = System::Drawing::Size(181, 20);
-			this->label_protocolFile->TabIndex = 15;
-			this->label_protocolFile->Text = L"Path to file with protocol:";
+			this->groupBox_graph->Controls->Add(this->richTextBox_infoGraph);
+			this->groupBox_graph->Controls->Add(this->label_infoGraph);
+			this->groupBox_graph->Controls->Add(this->label_graphFile);
+			this->groupBox_graph->Controls->Add(this->button_selectGraph);
+			this->groupBox_graph->Controls->Add(this->textBox_selectGraph);
+			this->groupBox_graph->Controls->Add(this->button_ceateGraph);
+			this->groupBox_graph->Enabled = false;
+			this->groupBox_graph->Location = System::Drawing::Point(487, 12);
+			this->groupBox_graph->Name = L"groupBox_graph";
+			this->groupBox_graph->Size = System::Drawing::Size(454, 348);
+			this->groupBox_graph->TabIndex = 16;
+			this->groupBox_graph->TabStop = false;
+			this->groupBox_graph->Text = L"Graph\'s settings";
 			// 
-			// richTextBox1
+			// richTextBox_infoGraph
 			// 
-			this->richTextBox1->Location = System::Drawing::Point(21, 218);
-			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->Size = System::Drawing::Size(413, 351);
-			this->richTextBox1->TabIndex = 16;
-			this->richTextBox1->Text = L"";
-			// 
-			// label_graphFile
-			// 
-			this->label_graphFile->AutoSize = true;
-			this->label_graphFile->Location = System::Drawing::Point(21, 102);
-			this->label_graphFile->Name = L"label_graphFile";
-			this->label_graphFile->Size = System::Drawing::Size(165, 20);
-			this->label_graphFile->TabIndex = 10;
-			this->label_graphFile->Text = L"Path to file with graph:";
+			this->richTextBox_infoGraph->Location = System::Drawing::Point(25, 218);
+			this->richTextBox_infoGraph->Name = L"richTextBox_infoGraph";
+			this->richTextBox_infoGraph->Size = System::Drawing::Size(410, 109);
+			this->richTextBox_infoGraph->TabIndex = 12;
+			this->richTextBox_infoGraph->Text = L"No graph uploaded";
 			// 
 			// label_infoGraph
 			// 
@@ -325,13 +301,14 @@ namespace PopulationProtocol {
 			this->label_infoGraph->TabIndex = 11;
 			this->label_infoGraph->Text = L"Inforamtion about graph:";
 			// 
-			// richTextBox2
+			// label_graphFile
 			// 
-			this->richTextBox2->Location = System::Drawing::Point(25, 218);
-			this->richTextBox2->Name = L"richTextBox2";
-			this->richTextBox2->Size = System::Drawing::Size(410, 109);
-			this->richTextBox2->TabIndex = 12;
-			this->richTextBox2->Text = L"";
+			this->label_graphFile->AutoSize = true;
+			this->label_graphFile->Location = System::Drawing::Point(21, 102);
+			this->label_graphFile->Name = L"label_graphFile";
+			this->label_graphFile->Size = System::Drawing::Size(165, 20);
+			this->label_graphFile->TabIndex = 10;
+			this->label_graphFile->Text = L"Path to file with graph:";
 			// 
 			// groupBox_simulation
 			// 
@@ -347,12 +324,14 @@ namespace PopulationProtocol {
 			this->groupBox_simulation->TabStop = false;
 			this->groupBox_simulation->Text = L"Simulation";
 			// 
-			// textBox_outputSimulationFile
+			// button_simulationBrowse
 			// 
-			this->textBox_outputSimulationFile->Location = System::Drawing::Point(25, 78);
-			this->textBox_outputSimulationFile->Name = L"textBox_outputSimulationFile";
-			this->textBox_outputSimulationFile->Size = System::Drawing::Size(284, 26);
-			this->textBox_outputSimulationFile->TabIndex = 15;
+			this->button_simulationBrowse->Location = System::Drawing::Point(339, 78);
+			this->button_simulationBrowse->Name = L"button_simulationBrowse";
+			this->button_simulationBrowse->Size = System::Drawing::Size(96, 31);
+			this->button_simulationBrowse->TabIndex = 17;
+			this->button_simulationBrowse->Text = L"Browse";
+			this->button_simulationBrowse->UseVisualStyleBackColor = true;
 			// 
 			// label_simulation
 			// 
@@ -363,14 +342,12 @@ namespace PopulationProtocol {
 			this->label_simulation->TabIndex = 16;
 			this->label_simulation->Text = L"Save simulation\'s result in:";
 			// 
-			// button_simulationBrowse
+			// textBox_outputSimulationFile
 			// 
-			this->button_simulationBrowse->Location = System::Drawing::Point(339, 78);
-			this->button_simulationBrowse->Name = L"button_simulationBrowse";
-			this->button_simulationBrowse->Size = System::Drawing::Size(96, 26);
-			this->button_simulationBrowse->TabIndex = 17;
-			this->button_simulationBrowse->Text = L"Browse";
-			this->button_simulationBrowse->UseVisualStyleBackColor = true;
+			this->textBox_outputSimulationFile->Location = System::Drawing::Point(25, 78);
+			this->textBox_outputSimulationFile->Name = L"textBox_outputSimulationFile";
+			this->textBox_outputSimulationFile->Size = System::Drawing::Size(308, 26);
+			this->textBox_outputSimulationFile->TabIndex = 15;
 			// 
 			// MyForm
 			// 
@@ -422,27 +399,7 @@ namespace PopulationProtocol {
 
 
 	}
-
-	private: System::Void checkBox_useExistingProtocol_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-		if (checkBox_useExistingProtocol->Checked) {
-			textBox_selectProtocol->Enabled = true;
-			button_selectProtocol->Enabled = true;
-		}
-		else {
-			textBox_selectProtocol->Enabled = false;
-			button_selectProtocol->Enabled = false;
-		}
-	}
-	private: System::Void checkBox_useExistingGraph_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-		if (checkBox_useExistingGraph->Checked) {
-			textBox_selectGraph->Enabled = true;
-			button_selectGraph->Enabled = true;
-		}
-		else {
-			textBox_selectGraph->Enabled = false;
-			button_selectGraph->Enabled = false;
-		}
-}
+			 
 	
 
 private: System::Void openFileDialogProtocol_FileOk(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
@@ -461,5 +418,10 @@ private: System::Void checkBox1_CheckedChanged(System::Object^  sender, System::
 }
 private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 }
+
+
+
+
+
 };
 }
