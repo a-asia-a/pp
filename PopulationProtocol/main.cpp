@@ -28,8 +28,8 @@ int main()
 
 	
 	Protocol *p = p->getInstance();
-	Functions *aa = new Functions();
-	aa->translateProtocol();
+	//Functions *aa = new Functions();
+	//aa->translateProtocol();
 	
 	
 	translateProtocol();

@@ -15,7 +15,7 @@ void translateProtocol() {
 	//fileProtocol.open("C:/magisterka/pp/example.txt");
 	
 	//fileProtocol.open("C:/magisterka/pp/aprox.txt");
-	fileProtocol.open("C:/magisterka/pp/birdsDie.txt");
+	fileProtocol.open("birdsDie.txt");
 	//fileProtocol.open("C:/magisterka/pp/example3.txt");
 	//fileProtocol.open("C:/magisterka/pp/example3.txt");
 	
