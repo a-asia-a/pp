@@ -10,7 +10,7 @@ namespace PopulationProtocol {
 	using namespace System::Drawing;
 	
 	void loadInfoProtocolFromFile();
-	void createFileAboutProtocolInfo(System::String^ pathToFile);
+	int createFileAboutProtocolInfo(System::String^ pathToFile);
 	
 	/// <summary>
 	/// Summary for MyForm
@@ -46,10 +46,14 @@ namespace PopulationProtocol {
 
 	private: System::Windows::Forms::Button^  button_selectProtocol;
 	public: static System::Windows::Forms::TextBox^  textBox_selectProtocol;
+	private:
+
 
 
 	private: System::Windows::Forms::OpenFileDialog^ OpenFileDialogWithProtocol;
-	public: static System::Windows::Forms::TextBox^  textBox_selectGraph;
+	public: System::Windows::Forms::TextBox^  textBox_selectGraph;
+	private:
+
 
 
 
@@ -82,6 +86,8 @@ namespace PopulationProtocol {
 
 	private: System::Windows::Forms::Label^  label_infoProtocol;
 	public: static System::Windows::Forms::RichTextBox^  richTextBox_infoProtocol;
+	private:
+
 	private: System::Windows::Forms::RichTextBox^  richTextBox_infoGraph;
 
 
@@ -267,9 +273,9 @@ namespace PopulationProtocol {
 			this->label_infoProtocol->AutoSize = true;
 			this->label_infoProtocol->Location = System::Drawing::Point(17, 186);
 			this->label_infoProtocol->Name = L"label_infoProtocol";
-			this->label_infoProtocol->Size = System::Drawing::Size(280, 20);
+			this->label_infoProtocol->Size = System::Drawing::Size(150, 20);
 			this->label_infoProtocol->TabIndex = 14;
-			this->label_infoProtocol->Text = L"Information about Population Protocol:";
+			this->label_infoProtocol->Text = L"Population Protocol:";
 			// 
 			// groupBox_graph
 			// 
@@ -384,9 +390,10 @@ namespace PopulationProtocol {
 		// to trzeba zmienic
 		//openFileDialogOfProtocol->OpenFile();
 
-		//zaladuj informacje o pliku	
-		createFileAboutProtocolInfo(this->textBox_selectProtocol->Text);
-		loadInfoProtocolFromFile();
+		//zaladuj informacje o pliku do richBox	
+		if (!createFileAboutProtocolInfo(this->textBox_selectProtocol->Text))
+			loadInfoProtocolFromFile();
+
 	}
 	private: System::Void button_selectGraph_Click(System::Object^  sender, System::EventArgs^  e) {
 		/*

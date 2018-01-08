@@ -4,7 +4,7 @@
 
 
 
-void PopulationProtocol::createFileAboutProtocolInfo(System::String^ pathToFile)
+int PopulationProtocol::createFileAboutProtocolInfo(System::String^ pathToFile)
 {
 	std::ifstream file;
 	std::string newPathToFile = msclr::interop::marshal_as<std::string>(pathToFile);
@@ -29,6 +29,8 @@ void PopulationProtocol::createFileAboutProtocolInfo(System::String^ pathToFile)
 		else {
 			result = MessageBox::Show(message, caption, buttons);
 			PopulationProtocol::MyForm::textBox_selectProtocol->Text = " ";
+			PopulationProtocol::MyForm::richTextBox_infoProtocol->Clear();
+			PopulationProtocol::MyForm::richTextBox_infoProtocol->AppendText("No protocol uploaded");
 			Status = STATUS_FAILURE;
 		}
 	}
@@ -92,7 +94,10 @@ void PopulationProtocol::createFileAboutProtocolInfo(System::String^ pathToFile)
 			}
 			std::getline(file, line);
 		}// end while(!file.eof())
+		return 0;
 	}// end if(STATUS_OK)
+	else
+		return 1;
 }
 
 void PopulationProtocol::loadInfoProtocolFromFile() 
@@ -116,4 +121,5 @@ void PopulationProtocol::loadInfoProtocolFromFile()
 			PopulationProtocol::MyForm::richTextBox_infoProtocol->AppendText(gcnew String(line.c_str()) + Environment::NewLine);
 		}
 	}
+	remove("infoProtocol.txt");
 }
