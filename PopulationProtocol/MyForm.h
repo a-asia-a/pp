@@ -8,13 +8,16 @@ namespace PopulationProtocol {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
-
+	
+	void loadInfoProtocolFromFile();
+	void createFileAboutProtocolInfo(System::String^ pathToFile);
+	
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
-	public:
+	public:	
 		MyForm(void)
 		{
 			InitializeComponent();
@@ -42,11 +45,11 @@ namespace PopulationProtocol {
 
 
 	private: System::Windows::Forms::Button^  button_selectProtocol;
-	private: System::Windows::Forms::TextBox^  textBox_selectProtocol;
+	public: static System::Windows::Forms::TextBox^  textBox_selectProtocol;
 
 
 	private: System::Windows::Forms::OpenFileDialog^ OpenFileDialogWithProtocol;
-	private: System::Windows::Forms::TextBox^  textBox_selectGraph;
+	public: static System::Windows::Forms::TextBox^  textBox_selectGraph;
 
 
 
@@ -78,7 +81,7 @@ namespace PopulationProtocol {
 
 
 	private: System::Windows::Forms::Label^  label_infoProtocol;
-	private: System::Windows::Forms::RichTextBox^  richTextBox_infoProtocol;
+	public: static System::Windows::Forms::RichTextBox^  richTextBox_infoProtocol;
 	private: System::Windows::Forms::RichTextBox^  richTextBox_infoGraph;
 
 
@@ -380,6 +383,10 @@ namespace PopulationProtocol {
 		this->textBox_selectProtocol->Text = openFileDialogOfProtocol->FileName;
 		// to trzeba zmienic
 		//openFileDialogOfProtocol->OpenFile();
+
+		//zaladuj informacje o pliku	
+		createFileAboutProtocolInfo(this->textBox_selectProtocol->Text);
+		loadInfoProtocolFromFile();
 	}
 	private: System::Void button_selectGraph_Click(System::Object^  sender, System::EventArgs^  e) {
 		/*
