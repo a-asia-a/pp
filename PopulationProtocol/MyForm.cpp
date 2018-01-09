@@ -3,7 +3,6 @@
 #include <msclr\marshal_cppstd.h>
 
 
-
 int PopulationProtocol::createFileAboutProtocolInfo(System::String^ pathToFile)
 {
 	std::ifstream file;
@@ -46,6 +45,10 @@ int PopulationProtocol::createFileAboutProtocolInfo(System::String^ pathToFile)
 				newLine = "input alphabet: ";
 				while (line[1] != '/') {
 					newLine = newLine + line + "; ";
+					//dodaj do tymczasowego zbioru symboli wejsciowych, 0-ilosc tych symboli w zbiorze
+					// std::make_pair(n, a[1])
+					//vectorOfInputAlphabetTemp.push_back({ line,0 });
+					vectorOfInputAlphabetTemp.push_back(std::make_pair(line, 0));
 					std::getline(file, line);
 				}
 				newFile << newLine << std::endl;

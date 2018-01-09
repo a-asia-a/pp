@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 namespace PopulationProtocol {
 
@@ -11,7 +12,9 @@ namespace PopulationProtocol {
 	
 	void loadInfoProtocolFromFile();
 	int createFileAboutProtocolInfo(System::String^ pathToFile);
-	
+	static std::vector <std::pair <std::string, int>> vectorOfInputAlphabetTemp;
+
+
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
