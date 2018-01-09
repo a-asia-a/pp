@@ -12,6 +12,8 @@ namespace PopulationProtocol {
 	
 	void loadInfoProtocolFromFile();
 	int createFileAboutProtocolInfo(System::String^ pathToFile);
+	int prepareGraphInfo(System::String^ pathToFile);
+	void showGraphInfo();
 	static std::vector <std::pair <std::string, int>> vectorOfInputAlphabetTemp;
 
 
@@ -54,7 +56,7 @@ namespace PopulationProtocol {
 
 
 	private: System::Windows::Forms::OpenFileDialog^ OpenFileDialogWithProtocol;
-	public: System::Windows::Forms::TextBox^  textBox_selectGraph;
+	public: static System::Windows::Forms::TextBox^  textBox_selectGraph;
 	private:
 
 
@@ -91,7 +93,7 @@ namespace PopulationProtocol {
 	public: static System::Windows::Forms::RichTextBox^  richTextBox_infoProtocol;
 	private:
 
-	private: System::Windows::Forms::RichTextBox^  richTextBox_infoGraph;
+	public: static System::Windows::Forms::RichTextBox^  richTextBox_infoGraph;
 
 
 
@@ -393,10 +395,13 @@ namespace PopulationProtocol {
 		// to trzeba zmienic
 		//openFileDialogOfProtocol->OpenFile();
 
-		//zaladuj informacje o pliku do richBox	
-		if (!createFileAboutProtocolInfo(this->textBox_selectProtocol->Text))
+		//zaladuj informacje o pliku do richBox i aktywuj dodawanie grafu	
+		if (!createFileAboutProtocolInfo(this->textBox_selectProtocol->Text)) {
 			loadInfoProtocolFromFile();
-
+			groupBox_graph->Enabled = true;
+		}
+		else
+			groupBox_graph->Enabled = false;
 	}
 	private: System::Void button_selectGraph_Click(System::Object^  sender, System::EventArgs^  e) {
 		/*
@@ -413,8 +418,10 @@ namespace PopulationProtocol {
 		this->textBox_selectGraph->Text = openFileDialogOfGraph->FileName;
 		// to trzeba zmienic
 		//openFileDialog1->OpenFile();
-
-
+		
+		//zaladuj informacje o grafie do richBox	
+		if (!prepareGraphInfo(this->textBox_selectGraph->Text))
+			showGraphInfo();
 	}
 			 
 	

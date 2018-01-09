@@ -39,6 +39,7 @@ int PopulationProtocol::createFileAboutProtocolInfo(System::String^ pathToFile)
 
 	if (STATUS_OK == Status) {
 		//std::cout << "otworzono" << std::endl;
+		vectorOfInputAlphabetTemp.clear();
 		while (!file.eof()) {
 			if (line == "<input>") {
 				std::getline(file, line);
@@ -126,3 +127,68 @@ void PopulationProtocol::loadInfoProtocolFromFile()
 	}
 	remove("infoProtocol.txt");
 }
+
+int PopulationProtocol::prepareGraphInfo(System::String^ pathToFile)
+{
+	std::ifstream file;
+	std::string newPathToFile = msclr::interop::marshal_as<std::string>(pathToFile);
+	file.open(newPathToFile);
+
+	bool Status;
+	std::string line;
+
+	// DODAJ SPR CZY TO PROTOCOL CZY GRAF
+	System::String^ message = "This file doesn't contains graph! Select other file.";
+	System::String^ caption = "Error";
+	MessageBoxButtons buttons = MessageBoxButtons::OK;
+	DialogResult result;
+
+	if (file.is_open()) {
+		std::getline(file, line);
+		if (line == "#graph") {
+			Status = STATUS_OK;
+		}
+		else {
+			result = MessageBox::Show(message, caption, buttons);
+			PopulationProtocol::MyForm::textBox_selectGraph->Text = " ";
+			PopulationProtocol::MyForm::richTextBox_infoGraph->Clear();
+			PopulationProtocol::MyForm::richTextBox_infoGraph->AppendText("No graph uploaded");
+			Status = STATUS_FAILURE;
+		}
+	}
+	else
+		Status = STATUS_FAILURE;
+
+
+	int numberOfNodes = 0;
+	std::vector<std::pair<std::string, int> >::iterator it;
+
+	if (STATUS_OK == Status) {
+		PopulationProtocol::MyForm::richTextBox_infoGraph->Clear();
+		std::getline(file, line);
+		numberOfNodes = atoi(line.c_str());
+		while (!file.eof()) {
+			std::getline(file, line);
+			for (it = vectorOfInputAlphabetTemp.begin(); it != vectorOfInputAlphabetTemp.end(); ++it) {
+				if (line == it->first)
+					it->second += 1; //zwieksz licznik o 1
+			}
+		}
+		return 0;
+	}
+	else
+		return 1;
+}
+
+void PopulationProtocol::showGraphInfo() {
+	std::vector<std::pair<std::string, int> >::iterator it;
+
+	PopulationProtocol::MyForm::richTextBox_infoProtocol->AppendText(
+		"Number of nodes :" + vectorOfInputAlphabetTemp.size() + System::Environment::NewLine);
+	for (it = vectorOfInputAlphabetTemp.begin(); it != vectorOfInputAlphabetTemp.end(); ++it) {
+			PopulationProtocol::MyForm::richTextBox_infoProtocol->AppendText(
+			"The number of nodes with the input symbol " + gcnew String(it->first.c_str()) +
+			": " + it->second + System::Environment::NewLine);
+	}
+}
+
