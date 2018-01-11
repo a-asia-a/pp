@@ -56,6 +56,9 @@
     <ClInclude Include="Protocol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GraphForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">
