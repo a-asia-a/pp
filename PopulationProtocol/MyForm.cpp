@@ -137,24 +137,13 @@ int PopulationProtocol::prepareGraphInfo(System::String^ pathToFile)
 	bool Status;
 	std::string line;
 
-	// DODAJ SPR CZY TO PROTOCOL CZY GRAF
-	System::String^ message = "This file doesn't contains graph! Select other file.";
-	System::String^ caption = "Error";
-	MessageBoxButtons buttons = MessageBoxButtons::OK;
-	DialogResult result;
-
 	if (file.is_open()) {
 		std::getline(file, line);
-		if (line == "#graph") {
+
+		if (!validateGraph(pathToFile))
 			Status = STATUS_OK;
-		}
-		else {
-			result = MessageBox::Show(message, caption, buttons);
-			PopulationProtocol::MyForm::textBox_selectGraph->Text = " ";
-			PopulationProtocol::MyForm::richTextBox_infoGraph->Clear();
-			PopulationProtocol::MyForm::richTextBox_infoGraph->AppendText("No graph uploaded");
+		else
 			Status = STATUS_FAILURE;
-		}
 	}
 	else
 		Status = STATUS_FAILURE;
@@ -167,28 +156,111 @@ int PopulationProtocol::prepareGraphInfo(System::String^ pathToFile)
 		PopulationProtocol::MyForm::richTextBox_infoGraph->Clear();
 		std::getline(file, line);
 		numberOfNodes = atoi(line.c_str());
+		//reset the number each input symbol
+		for (it = vectorOfInputAlphabetTemp.begin(); it != vectorOfInputAlphabetTemp.end(); ++it) {
+			it->second = 0;
+		}
+		// count the number each input symbol
 		while (!file.eof()) {
 			std::getline(file, line);
 			for (it = vectorOfInputAlphabetTemp.begin(); it != vectorOfInputAlphabetTemp.end(); ++it) {
 				if (line == it->first)
-					it->second += 1; //zwieksz licznik o 1
+					it->second += 1; //increment number the input symbol
 			}
 		}
-		return 0;
+		return numberOfNodes;
 	}
+	else
+		return 0;
+}
+
+void PopulationProtocol::showGraphInfo(int numberOfNodes) {
+	std::vector<std::pair<std::string, int> >::iterator it;
+
+	PopulationProtocol::MyForm::richTextBox_infoGraph->AppendText(
+		"Number of nodes :" + numberOfNodes + System::Environment::NewLine);
+	for (it = vectorOfInputAlphabetTemp.begin(); it != vectorOfInputAlphabetTemp.end(); ++it) {
+			PopulationProtocol::MyForm::richTextBox_infoGraph->AppendText(
+			"The number of nodes with the input symbol " + gcnew String(it->first.c_str()) +
+			": " + it->second + System::Environment::NewLine);
+	}
+}
+
+bool PopulationProtocol::validateGraph(System::String^ pathToFile) {
+	std::ifstream file;
+	std::string newPathToFile = msclr::interop::marshal_as<std::string>(pathToFile);
+	file.open(newPathToFile);
+	std::string line;
+
+	bool Status;
+	if (file.is_open())
+		Status = STATUS_OK;
+	else
+		Status = STATUS_FAILURE;
+
+	DialogResult result;
+
+	// if file contains a graph
+	std::getline(file, line);
+	if (line == "#graph")
+		Status = STATUS_OK;
+	else {
+		result = showMessage(1);
+		Status = STATUS_FAILURE;
+	}
+
+	//if file has appropirate nombero of nodes and if file with graph is correct (is compatibile with protocol)
+
+	if (Status == STATUS_OK) {
+		std::vector<std::pair<std::string, int> >::iterator it;
+		bool symbolIsProper = false;
+		int numberInputSymbolInFile = 0;
+		std::getline(file, line);
+		int numberOfNodes = atoi(line.c_str());
+
+		while (!file.eof()) {
+			std::getline(file, line);
+			numberInputSymbolInFile += 1;
+			for (it = vectorOfInputAlphabetTemp.begin(); it != vectorOfInputAlphabetTemp.end(); ++it) {
+				if (line == it->first) {
+					symbolIsProper = true;
+					break;
+				}
+			}
+			if (!symbolIsProper) {
+				result = showMessage(2);
+				Status = STATUS_FAILURE;
+			}
+			//clean flag 
+			symbolIsProper = false;
+		}
+		if (numberOfNodes != numberInputSymbolInFile) {
+			result = showMessage(3);
+			Status = STATUS_FAILURE;
+		}
+	}
+
+	if (STATUS_OK == Status)
+		return 0;
 	else
 		return 1;
 }
 
-void PopulationProtocol::showGraphInfo() {
-	std::vector<std::pair<std::string, int> >::iterator it;
+System::Windows::Forms::DialogResult PopulationProtocol::showMessage(int idxMessage) {
+	System::String^ message1 = "This file doesn't contains graph! Select other file.";
+	System::String^ message2 = "This graph doesn't match to Protocol. Select other file.";
+	System::String^ message3 = "Incorrect number of nodes in graph. Correct number of nodes in file.";
+	System::String^ caption = "Error";
+	MessageBoxButtons buttons = MessageBoxButtons::OK;
 
-	PopulationProtocol::MyForm::richTextBox_infoProtocol->AppendText(
-		"Number of nodes :" + vectorOfInputAlphabetTemp.size() + System::Environment::NewLine);
-	for (it = vectorOfInputAlphabetTemp.begin(); it != vectorOfInputAlphabetTemp.end(); ++it) {
-			PopulationProtocol::MyForm::richTextBox_infoProtocol->AppendText(
-			"The number of nodes with the input symbol " + gcnew String(it->first.c_str()) +
-			": " + it->second + System::Environment::NewLine);
+	PopulationProtocol::MyForm::textBox_selectGraph->Text = " ";
+	PopulationProtocol::MyForm::richTextBox_infoGraph->Clear();
+	PopulationProtocol::MyForm::richTextBox_infoGraph->AppendText("No graph uploaded");
+
+	switch (idxMessage) {
+	case 1: return MessageBox::Show(message1, caption, buttons);
+	case 2: return MessageBox::Show(message2, caption, buttons);
+	case 3: return MessageBox::Show(message3, caption, buttons);
 	}
 }
 

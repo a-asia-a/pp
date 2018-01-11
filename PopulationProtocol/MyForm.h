@@ -13,7 +13,10 @@ namespace PopulationProtocol {
 	void loadInfoProtocolFromFile();
 	int createFileAboutProtocolInfo(System::String^ pathToFile);
 	int prepareGraphInfo(System::String^ pathToFile);
-	void showGraphInfo();
+	void showGraphInfo(int numberOfNodes);
+	bool validateGraph(System::String^ pathToFile);
+	System::Windows::Forms::DialogResult showMessage(int idxMessage);
+	void cleanRichBox(std::string nameRichBox);
 	static std::vector <std::pair <std::string, int>> vectorOfInputAlphabetTemp;
 
 
@@ -419,9 +422,10 @@ namespace PopulationProtocol {
 		// to trzeba zmienic
 		//openFileDialog1->OpenFile();
 		
-		//zaladuj informacje o grafie do richBox	
-		if (!prepareGraphInfo(this->textBox_selectGraph->Text))
-			showGraphInfo();
+		//zaladuj informacje o grafie do richBox
+		int numberOfNodes = prepareGraphInfo(this->textBox_selectGraph->Text);
+		if (numberOfNodes != 0)
+			showGraphInfo(numberOfNodes);
 	}
 			 
 	
