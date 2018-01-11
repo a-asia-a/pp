@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="GraphForm.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="MyFormPropertiesOfPP.cpp" />

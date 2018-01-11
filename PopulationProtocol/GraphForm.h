@@ -9,6 +9,10 @@ namespace PopulationProtocol {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
+
+	DialogResult showMessageGraph(int idxMessage);
+
+
 	/// <summary>
 	/// Summary for GraphForm
 	/// </summary>
@@ -37,7 +41,8 @@ namespace PopulationProtocol {
 	private: System::Windows::Forms::Label^  label_numberOfNodes;
 	private: System::Windows::Forms::CheckBox^  checkBox_ifRandom;
 	private: System::Windows::Forms::GroupBox^  groupBox_defineGraph;
-	private: System::Windows::Forms::TextBox^  textBox1;
+	public: static System::Windows::Forms::TextBox^  textBox_numberOfNodes;
+
 
 	protected:
 
@@ -59,7 +64,7 @@ namespace PopulationProtocol {
 			this->label_numberOfNodes = (gcnew System::Windows::Forms::Label());
 			this->checkBox_ifRandom = (gcnew System::Windows::Forms::CheckBox());
 			this->groupBox_defineGraph = (gcnew System::Windows::Forms::GroupBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox_numberOfNodes = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// label_numberOfNodes
@@ -73,7 +78,6 @@ namespace PopulationProtocol {
 			// 
 			// checkBox_ifRandom
 			// 
-			this->checkBox_ifRandom->AutoEllipsis = true;
 			this->checkBox_ifRandom->AutoSize = true;
 			this->checkBox_ifRandom->Checked = true;
 			this->checkBox_ifRandom->CheckState = System::Windows::Forms::CheckState::Checked;
@@ -93,19 +97,21 @@ namespace PopulationProtocol {
 			this->groupBox_defineGraph->TabStop = false;
 			this->groupBox_defineGraph->Text = L"define the graph";
 			// 
-			// textBox1
+			// textBox_numberOfNodes
 			// 
-			this->textBox1->Location = System::Drawing::Point(109, 23);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(51, 20);
-			this->textBox1->TabIndex = 1;
+			this->textBox_numberOfNodes->Location = System::Drawing::Point(109, 23);
+			this->textBox_numberOfNodes->Name = L"textBox_numberOfNodes";
+			this->textBox_numberOfNodes->Size = System::Drawing::Size(51, 20);
+			this->textBox_numberOfNodes->TabIndex = 1;
+			this->textBox_numberOfNodes->TextChanged += gcnew System::EventHandler(this, &GraphForm::textBox_numberOfNodes_TextChanged);
+			this->textBox_numberOfNodes->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &GraphForm::textBox_numberOfNodes_KeyPress);
 			// 
 			// GraphForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(327, 256);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->textBox_numberOfNodes);
 			this->Controls->Add(this->groupBox_defineGraph);
 			this->Controls->Add(this->checkBox_ifRandom);
 			this->Controls->Add(this->label_numberOfNodes);
@@ -117,6 +123,23 @@ namespace PopulationProtocol {
 		}
 #pragma endregion
 	private: System::Void domainUpDown1_SelectedItemChanged(System::Object^  sender, System::EventArgs^  e) {
+
 	}
-	};
+	private: System::Void textBox_numberOfNodes_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+		
+
+	}
+	private: System::Void textBox_numberOfNodes_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+		//protection, only numbers
+		if (e->KeyChar >= '0' && e->KeyChar <= '9' || e->KeyChar == 8)// check if the pressed key is number  or backspace
+			e->Handled = false;                                       // no block
+		else {
+			e->Handled = true;										  // block
+			showMessageGraph(1);
+		}
+			
+		
+	}
+
+};
 }
