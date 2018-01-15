@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "GraphForm.h"
 
 namespace PopulationProtocol {
 
@@ -170,7 +171,7 @@ namespace PopulationProtocol {
 			this->button_ceateGraph->TabIndex = 9;
 			this->button_ceateGraph->Text = L"Create new graph";
 			this->button_ceateGraph->UseVisualStyleBackColor = true;
-			this->button_ceateGraph->Click += gcnew System::EventHandler(this, &MyForm::button4_Click);
+			this->button_ceateGraph->Click += gcnew System::EventHandler(this, &MyForm::button_ceateGraph_Click);
 			// 
 			// button_selectGraph
 			// 
@@ -436,8 +437,11 @@ private: System::Void button_createProtocol_Click(System::Object^  sender, Syste
 }
 
 
-// stare
-private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void button_ceateGraph_Click(System::Object^  sender, System::EventArgs^  e) {
+	this->Hide();
+	PopulationProtocol::GraphForm objGraphForm;
+	objGraphForm.ShowDialog();
+	this->Show();
 }
 private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
 }

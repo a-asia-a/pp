@@ -22,9 +22,7 @@ int main()
 	//Application::Run(%form1);
 	
 	PopulationProtocol::MyForm form;
-	Application::Run(%form);
-	
-	
+	Application::Run(%form); 
 
 	
 	Protocol *p = p->getInstance();

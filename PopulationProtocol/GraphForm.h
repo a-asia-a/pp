@@ -136,10 +136,8 @@ namespace PopulationProtocol {
 		else {
 			e->Handled = true;										  // block
 			showMessageGraph(1);
-		}
-			
-		
-	}
+		}	
+	} 
 
 };
 }
